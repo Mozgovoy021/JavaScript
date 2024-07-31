@@ -6,22 +6,24 @@ var services = {
 
     price() {
         return Object.values(this)
-            .map(value => parseFloat(value))
+            .filter(value => typeof value === 'string')
+            .map(value => parseFloat(value.replace(' грн', ''))) 
             .reduce((sum, current) => sum + current, 0) + ' грн';
     },
 
     minPrice() {
         return Math.min(...Object.values(this)
-            .map(value => parseFloat(value))) + ' грн';
+            .filter(value => typeof value === 'string')
+            .map(value => parseFloat(value.replace(' грн', '')))) + ' грн';
     },
 
     maxPrice() {
         return Math.max(...Object.values(this)
-            .map(value => parseFloat(value))) + ' грн';
+            .filter(value => typeof value === 'string')
+            .map(value => parseFloat(value.replace(' грн', '')))) + ' грн';
     }
 };
 
-// Перевірка роботи методів
-console.log('Загальна вартість: ' + services.price());
-console.log('Мінімальна вартість: ' + services.minPrice());
-console.log('Максимальна вартість: ' + services.maxPrice());
+console.log('Загальна вартість: ' + services.price()); 
+console.log('Мінімальна вартість: ' + services.minPrice()); 
+console.log('Максимальна вартість: ' + services.maxPrice()); 
